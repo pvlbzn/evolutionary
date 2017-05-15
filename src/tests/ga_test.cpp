@@ -46,6 +46,16 @@ TEST_CASE( "Chromosome should correspond to specification", "[Chromosome]" )
         auto c1 = Chromosome();
         auto c1_mutated = c1.mutate();
 
+        // Mutated data is differ from parent
         REQUIRE( c1.get_data() != c1_mutated.get_data() );
+
+        int diff = 0;
+
+        for (int i = 0; i < c1.get_data().length(); i++)
+            if (c1.get_data()[i] != c1_mutated.get_data()[i])
+                diff += 1;
+
+        // Mutated exactly one gene from parent
+        REQUIRE( diff == 1 );
     }
 }
