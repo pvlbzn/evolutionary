@@ -18,6 +18,9 @@ public:
 
     void mutate();
     void calculate_cost();
+
+    string   get_data();
+    uint32_t get_cost();
 };
 
 
@@ -40,4 +43,6 @@ public:
     void crossover();
     void mutate();
     bool is_fit();
+
+    string get_status();
 };
