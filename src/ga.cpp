@@ -5,6 +5,7 @@
 
 #include "ga.hpp"
 
+
 // tmp value
 std::string input_string = "Genetical Algorithm";
 const int ASCII_MIN = 32;
@@ -40,8 +41,23 @@ Chromosome::Chromosome()
     cost = -1;
 }
 
-// Chromosome operator+(const Chromosome &other)
-// {
-//     ;
-// }
+/**
+ * Crossover two chromosomes by adding them together.
+ *
+ * Left part from current chromosome, right part from `other` chromosome.
+ *
+ * @param other other chromosome
+ * @return  product of crossover of two chromosomes
+ */
+Chromosome Chromosome::operator+(Chromosome &other)
+{
+    std::string ndata;
+
+    int len = data.length();
+
+    ndata += data.substr(0, (len / 2));
+    ndata += other.get_data().substr((len / 2), len);
+
+    return Chromosome(ndata, -1);
+}
 
