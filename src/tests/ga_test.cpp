@@ -28,7 +28,7 @@ TEST_CASE( "Chromosome should correspond to specification", "[Chromosome]" )
         REQUIRE( c1.get_data() != c2.get_data() );
     }
 
-    SECTION("Chromosomes should crossover", "[Chromosome]") {
+    SECTION("Chromosomes should crossover", "[Chromosome::operator+]") {
         auto c1 = Chromosome();
         auto c2 = Chromosome();
 
@@ -42,7 +42,7 @@ TEST_CASE( "Chromosome should correspond to specification", "[Chromosome]" )
         REQUIRE( c3.get_data() == (left_half + right_half) );
     }
 
-    SECTION("Chromosomes should mutate", "[Chromosome]") {
+    SECTION("Chromosomes should mutate", "[Chromosome::mutate]") {
         auto c1 = Chromosome();
         auto c1_mutated = c1.mutate();
 
@@ -57,5 +57,18 @@ TEST_CASE( "Chromosome should correspond to specification", "[Chromosome]" )
 
         // Mutated exactly one gene from parent
         REQUIRE( diff == 1 );
+    }
+
+    SECTION("Chromosomes should be measured", "[Chromosome::calculate_cost]") {
+        auto c1 = Chromosome("aaa", -1);
+
+        // |a - b| = 1
+        c1.calculate_cost("aab");
+
+        REQUIRE( c1.get_cost() == 1 );
+
+        c1.calculate_cost("bbb");
+
+        REQUIRE( c1.get_cost() == 3 );
     }
 }

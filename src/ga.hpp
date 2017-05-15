@@ -18,7 +18,7 @@ public:
     Chromosome operator+(Chromosome &other);
 
     Chromosome mutate();
-    void calculate_cost();
+    void calculate_cost(const std::string &ref);
 
     string   get_data() { return data; }
     uint32_t get_cost() { return cost; }

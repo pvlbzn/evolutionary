@@ -87,12 +87,12 @@ Chromosome Chromosome::mutate()
 /**
  * Cost function.
  */
-void Chromosome::calculate_cost()
+void Chromosome::calculate_cost(const std::string &ref)
 {
-    int score = 0;
+    int score = cost = 0;
 
     for (int i = 0; i < data.length(); i++)
-        score += ((int) data[i]) - ((int) reference_str[i]);
+        score += ((int) data[i]) - ((int) ref[i]);
 
     cost = score >= 0 ? score : -score;
 }
