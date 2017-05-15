@@ -33,6 +33,7 @@ std::string make_random_str(int min, int max, int len)
 Chromosome::Chromosome()
 {
     data = make_random_str(ASCII_MIN, ASCII_MAX, input_string.length());
+    cost = -1;
 }
 
 // Chromosome operator+(const Chromosome &other)

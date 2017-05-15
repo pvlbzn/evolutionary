@@ -8,6 +8,9 @@
 TEST_CASE( "Chromosome should correspond to specification", "[Chromosome]" )
 {
     SECTION("Create chromosome", "[Chromosome]") {
-        REQUIRE( false );
+        auto c = new Chromosome();
+
+        REQUIRE( c->get_data().length() != 0 );
+        REQUIRE( c->get_cost() == -1 );
     }
 }

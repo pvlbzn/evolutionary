@@ -19,8 +19,8 @@ public:
     void mutate();
     void calculate_cost();
 
-    string   get_data();
-    uint32_t get_cost();
+    string   get_data() { return data; }
+    uint32_t get_cost() { return cost; }
 };
 
 
