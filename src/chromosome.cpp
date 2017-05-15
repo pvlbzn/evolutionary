@@ -39,7 +39,14 @@ std::string make_random_str(int min, int max, int len)
  */
 Chromosome::Chromosome()
 {
-    data = make_random_str(ASCII_MIN, ASCII_MAX, reference_str.length());
+    data = make_random_str(ASCII_MIN, ASCII_MAX, 0);
+    cost = -1;
+}
+
+
+Chromosome::Chromosome(int strlen)
+{
+    data = make_random_str(ASCII_MIN, ASCII_MAX, strlen);
     cost = -1;
 }
 

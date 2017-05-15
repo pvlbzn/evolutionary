@@ -13,6 +13,7 @@ private:
     int cost;
 public:
     Chromosome();
+    Chromosome(int strlen);
     Chromosome(string d, int c) :data {d}, cost {c} {}
 
     Chromosome operator+(const Chromosome &other);
@@ -41,13 +42,13 @@ public:
         citizens.clear();
     }
 
-    void performance();
+    int performance();
     void kill();
     void crossover();
     void mutate();
     bool is_fit();
 
     string get_status();
-    const string& get_goal() { return goal; }
-    const vector<Chromosome>& get_citizens() { return citizens; }
+    string& get_goal() { return goal; }
+    vector<Chromosome>& get_citizens() { return citizens; }
 };

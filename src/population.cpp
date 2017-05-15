@@ -17,18 +17,19 @@ Population::Population(std::string g, int s)
 
     // Populate with random citizens
     for (int i = 0; i < s; i++)
-        citizens.push_back(Chromosome());
+        citizens.push_back(Chromosome(g.size()));
 }
 
 
 /**
  * Calculate population's performance.
  */
-void Population::performance()
+int Population::performance()
 {
     score = 0;
 
     for (auto &chromosome : citizens)
         score += chromosome.calculate_cost(goal);
 
+    return score;
 }

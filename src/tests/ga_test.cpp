@@ -8,9 +8,9 @@
 TEST_CASE( "Chromosome should correspond to specification", "[Chromosome::Chromosome]" )
 {
     SECTION("Create chromosome", "[Chromosome]") {
-        auto c = Chromosome();
+        auto c = Chromosome(5);
 
-        REQUIRE( c.get_data().length() != 0 );
+        REQUIRE( c.get_data().length() == 5 );
         REQUIRE( c.get_cost() == -1 );
     }
 
@@ -22,19 +22,19 @@ TEST_CASE( "Chromosome should correspond to specification", "[Chromosome::Chromo
     }
 
     SECTION("Chromosomes should be different", "[Chromosome::Chromosome]") {
-        auto c1 = Chromosome();
-        auto c2 = Chromosome();
+        auto c1 = Chromosome(50);
+        auto c2 = Chromosome(50);
 
         REQUIRE( c1.get_data() != c2.get_data() );
     }
 
     SECTION("Chromosomes should crossover", "[Chromosome::operator+]") {
-        auto c1 = Chromosome();
-        auto c2 = Chromosome();
+        auto c1 = Chromosome(50);
+        auto c2 = Chromosome(50);
 
         int len = c1.get_data().length();
 
-        auto left_half = c1.get_data().substr(0, (len / 2));
+        auto left_half  = c1.get_data().substr(0, (len / 2));
         auto right_half = c2.get_data().substr((len / 2), len);
 
         auto c3 = c1 + c2;
@@ -43,7 +43,7 @@ TEST_CASE( "Chromosome should correspond to specification", "[Chromosome::Chromo
     }
 
     SECTION("Chromosomes should mutate", "[Chromosome::mutate]") {
-        auto c1 = Chromosome();
+        auto c1 = Chromosome(50);
         auto c1_mutated = c1.mutate();
 
         // Mutated data is differ from parent
@@ -94,6 +94,7 @@ TEST_CASE( "Population should correspond to specification", "[Population]" )
         p.get_citizens().push_back(c1);
         p.get_citizens().push_back(c2);
 
-
+        REQUIRE( p.get_citizens().size() == 2 );
+        REQUIRE( p.performance() == 6 );
     }
 }
