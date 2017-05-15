@@ -20,3 +20,15 @@ Population::Population(std::string g, int s)
         citizens.push_back(Chromosome());
 }
 
+
+/**
+ * Calculate population's performance.
+ */
+void Population::performance()
+{
+    score = 0;
+
+    for (auto &chromosome : citizens)
+        score += chromosome.calculate_cost(goal);
+
+}

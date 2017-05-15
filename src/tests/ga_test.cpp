@@ -85,4 +85,15 @@ TEST_CASE( "Population should correspond to specification", "[Population]" )
         REQUIRE( p.get_citizens().size() == 50 );
         REQUIRE( p.get_goal() == "goal" );
     }
+
+    SECTION("Performance should be calculated correctly", "[Population::performance]") {
+        auto p = Population("aaa", 0);
+        auto c1 = Chromosome("bbb", -1);
+        auto c2 = Chromosome("bbb", -1);
+
+        p.get_citizens().push_back(c1);
+        p.get_citizens().push_back(c2);
+
+
+    }
 }
