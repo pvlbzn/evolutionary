@@ -13,6 +13,7 @@ private:
     uint32_t cost;
 public:
     Chromosome();
+    Chromosome(string d, uint32_t c) :data {d}, cost {c} {}
 
     Chromosome operator+(const Chromosome &other);
 

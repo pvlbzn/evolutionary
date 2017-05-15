@@ -1,6 +1,8 @@
 #include <random>
 #include <sstream>
 
+#include <iostream>
+
 #include "ga.hpp"
 
 // tmp value
@@ -20,11 +22,13 @@ const int ASCII_MAX = 122;
 std::string make_random_str(int min, int max, int len)
 {
     std::stringstream ss;
-    std::mt19937 gen;
-    std::uniform_int_distribution<int> rng(ASCII_MIN, ASCII_MAX);
+
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> dist(ASCII_MIN, ASCII_MAX);
 
     for (int i = 0; i < len; i++)
-        ss << rng(gen);
+        ss << (char) dist(mt);
 
     return ss.str();
 }
