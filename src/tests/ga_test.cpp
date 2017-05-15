@@ -5,7 +5,7 @@
 
 
 
-TEST_CASE( "Chromosome should correspond to specification", "[Chromosome]" )
+TEST_CASE( "Chromosome should correspond to specification", "[Chromosome::Chromosome]" )
 {
     SECTION("Create chromosome", "[Chromosome]") {
         auto c = Chromosome();
@@ -14,14 +14,14 @@ TEST_CASE( "Chromosome should correspond to specification", "[Chromosome]" )
         REQUIRE( c.get_cost() == -1 );
     }
 
-    SECTION("Create chromosome with a given data", "[Chromosome]") {
+    SECTION("Create chromosome with a given data", "[Chromosome::Chromosome]") {
         auto c = Chromosome("some data", -1);
 
         REQUIRE( c.get_data() == "some data" );
         REQUIRE( c.get_cost() == -1 );
     }
 
-    SECTION("Chromosomes should be different", "[Chromosome]") {
+    SECTION("Chromosomes should be different", "[Chromosome::Chromosome]") {
         auto c1 = Chromosome();
         auto c2 = Chromosome();
 
@@ -70,5 +70,19 @@ TEST_CASE( "Chromosome should correspond to specification", "[Chromosome]" )
         c1.calculate_cost("bbb");
 
         REQUIRE( c1.get_cost() == 3 );
+
+        // Cost also should be returned correctly
+        REQUIRE( c1.calculate_cost("bbb") == 3 );
+    }
+}
+
+
+TEST_CASE( "Population should correspond to specification", "[Population]" )
+{
+    SECTION("Population should be constructed properly", "[Population::Population]") {
+        auto p = Population("goal", 50);
+
+        REQUIRE( p.get_citizens().size() == 50 );
+        REQUIRE( p.get_goal() == "goal" );
     }
 }

@@ -10,30 +10,32 @@ class Chromosome
 {
 private:
     string   data;
-    uint32_t cost;
+    int cost;
 public:
     Chromosome();
-    Chromosome(string d, uint32_t c) :data {d}, cost {c} {}
+    Chromosome(string d, int c) :data {d}, cost {c} {}
 
-    Chromosome operator+(Chromosome &other);
+    Chromosome operator+(const Chromosome &other);
 
     Chromosome mutate();
-    void calculate_cost(const std::string &ref);
+    int calculate_cost(const std::string &ref);
 
-    string   get_data() { return data; }
-    uint32_t get_cost() { return cost; }
+    string get_data() const { return data; }
+    int    get_cost() const { return cost; }
 };
 
 
 class Population
 {
 private:
-    const uint32_t     ncitizens;
-    const uint32_t     score;
+    int ncitizens;
+    int score;
 
     vector<Chromosome> citizens;
+
+    string goal;
 public:
-    Population(string goal, uint32_t size);
+    Population(string g, int s);
     ~Population()
     {
         citizens.clear();
@@ -46,4 +48,6 @@ public:
     bool is_fit();
 
     string get_status();
+    const string& get_goal() { return goal; }
+    const vector<Chromosome>& get_citizens() { return citizens; }
 };

@@ -1,8 +1,6 @@
 #include <random>
 #include <sstream>
 
-#include <iostream>
-
 #include "ga.hpp"
 
 
@@ -54,7 +52,7 @@ Chromosome::Chromosome()
  * @param other other chromosome
  * @return  product of crossover of two chromosomes
  */
-Chromosome Chromosome::operator+(Chromosome &other)
+Chromosome Chromosome::operator+(const Chromosome &other)
 {
     std::string ndata;
 
@@ -86,13 +84,16 @@ Chromosome Chromosome::mutate()
 
 /**
  * Cost function.
+ *
+ * Function calculates chromosome cost and returns it. `cost` field
+ * of the instance also mutated.
  */
-void Chromosome::calculate_cost(const std::string &ref)
+int Chromosome::calculate_cost(const std::string &ref)
 {
     int score = cost = 0;
 
     for (int i = 0; i < data.length(); i++)
         score += ((int) data[i]) - ((int) ref[i]);
 
-    cost = score >= 0 ? score : -score;
+    return cost = score >= 0 ? score : -score;
 }
