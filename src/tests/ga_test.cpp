@@ -41,4 +41,11 @@ TEST_CASE( "Chromosome should correspond to specification", "[Chromosome]" )
 
         REQUIRE( c3.get_data() == (left_half + right_half) );
     }
+
+    SECTION("Chromosomes should mutate", "[Chromosome]") {
+        auto c1 = Chromosome();
+        auto c1_mutated = c1.mutate();
+
+        REQUIRE( c1.get_data() != c1_mutated.get_data() );
+    }
 }

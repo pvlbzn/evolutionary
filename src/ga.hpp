@@ -17,7 +17,7 @@ public:
 
     Chromosome operator+(Chromosome &other);
 
-    void mutate();
+    Chromosome mutate();
     void calculate_cost();
 
     string   get_data() { return data; }

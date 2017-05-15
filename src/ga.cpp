@@ -7,9 +7,10 @@
 
 
 // tmp value
-std::string input_string = "Genetical Algorithm";
+std::string reference_str = "Genetical Algorithm";
 const int ASCII_MIN = 32;
 const int ASCII_MAX = 122;
+
 
 /**
  * Make random string of the length `len` in ASCII interval from
@@ -35,11 +36,15 @@ std::string make_random_str(int min, int max, int len)
 }
 
 
+/**
+ * Chromosome constructor with randomly generated data.
+ */
 Chromosome::Chromosome()
 {
-    data = make_random_str(ASCII_MIN, ASCII_MAX, input_string.length());
+    data = make_random_str(ASCII_MIN, ASCII_MAX, reference_str.length());
     cost = -1;
 }
+
 
 /**
  * Crossover two chromosomes by adding them together.
@@ -61,3 +66,33 @@ Chromosome Chromosome::operator+(Chromosome &other)
     return Chromosome(ndata, -1);
 }
 
+
+/**
+ * Mutate one gene of a chromosome.
+ */
+Chromosome Chromosome::mutate()
+{
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> str_dist(0, data.length());
+    std::uniform_int_distribution<int> char_dist(ASCII_MIN, ASCII_MAX);
+
+    std::string d = data;
+    d[str_dist(mt) - 1] = char_dist(mt);
+
+    return Chromosome(d, -1);
+}
+
+
+/**
+ * Cost function.
+ */
+void Chromosome::calculate_cost()
+{
+    int score = 0;
+
+    for (int i = 0; i < data.length(); i++)
+        score += ((int) data[i]) - ((int) reference_str[i]);
+
+    cost = score >= 0 ? score : -score;
+}
