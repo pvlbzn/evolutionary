@@ -17,7 +17,7 @@ public:
     Chromosome(string d, int c) :data {d}, cost {c} {}
 
     Chromosome operator + (const Chromosome &other);
-    bool       operator > (const Chromosome &other);
+    bool       operator > (const Chromosome &other) const;
 
     Chromosome mutate();
     int calculate_cost(const std::string &ref);
@@ -44,6 +44,7 @@ public:
     }
 
     int  performance();
+    void sort();
     void kill();
     void crossover();
     void mutate();
