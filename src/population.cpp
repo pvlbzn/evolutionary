@@ -107,9 +107,16 @@ std::vector<Chromosome> Population::crossover()
 /**
  *
  */
-void mutate()
+void Population::mutate()
 {
-    ;
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> dist_citizen(0, citizens.size() - 1);
+
+    int n = dist_citizen(mt);
+    citizens[n] = citizens[n].mutate();
+
+
 }
 
 /**

@@ -169,4 +169,16 @@ TEST_CASE( "Population should correspond to specification", "[Population]" )
         REQUIRE( breed.size() == 1 );
         REQUIRE( breed[0].get_data() == "aabb" );
     }
+
+    SECTION("Citizen should mutate", "[Population::mutate]") {
+        auto p = Population("aaaa", 0);
+
+        auto c1 = Chromosome("aaab", -1); // 1
+
+        p.get_citizens().push_back(c1);
+
+        p.mutate();
+
+        REQUIRE( p.get_citizens()[0].get_data() != "aaab" );
+    }
 }
