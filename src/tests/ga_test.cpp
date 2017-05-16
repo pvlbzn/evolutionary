@@ -107,4 +107,19 @@ TEST_CASE( "Population should correspond to specification", "[Population]" )
         REQUIRE( p.get_citizens().size() == 2 );
         REQUIRE( p.performance() == 6 );
     }
+
+    SECTION("Population should be sorted properly", "[Population::sort]") {
+        auto p = Population("aaa", 0);
+
+        auto c1 = Chromosome("aab", -1);
+        auto c2 = Chromosome("bbb", -1);
+
+        p.get_citizens().push_back(c1);
+        p.get_citizens().push_back(c2);
+
+        p.sort();
+
+        REQUIRE( p.get_citizens()[0].get_data() == "aab");
+        REQUIRE( p.get_citizens()[1].get_data() == "bbb");
+    }
 }
