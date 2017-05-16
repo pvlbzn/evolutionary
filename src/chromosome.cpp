@@ -72,12 +72,18 @@ Chromosome Chromosome::operator+(const Chromosome &other)
 }
 
 
-bool Chromosome::operator>(const Chromosome &other)
+/**
+ * Compare two chromosomes.
+ *
+ * 1 > 2 == true
+ *
+ * Because 1 is "better" than 2.
+ */
+bool Chromosome::operator>(const Chromosome &other) const
 {
-    return cost < other.cost;
+    return (cost < other.cost);
 }
 
-//// std::sort(vec.begin(), vec.end(),greater<MyStruct>());
 
 /**
  * Mutate one gene of a chromosome.
