@@ -26,6 +26,9 @@ Population::Population(std::string g, int s)
 
 /**
  * Calculate population's performance.
+ *
+ * Performance of each chromosome is calculated, the sum of individual
+ * chromosomes is the total score.
  */
 int Population::performance()
 {
@@ -115,14 +118,16 @@ void Population::mutate()
 
     int n = dist_citizen(mt);
     citizens[n] = citizens[n].mutate();
-
-
 }
 
 /**
  *
  */
-bool is_fit()
+bool Population::is_fit()
 {
+    for (auto const &citizen : citizens)
+        if (citizen.get_cost() == 0 and citizen.get_data() == goal)
+            return true;
+
     return false;
 }

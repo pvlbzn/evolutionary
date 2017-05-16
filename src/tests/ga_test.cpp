@@ -181,4 +181,20 @@ TEST_CASE( "Population should correspond to specification", "[Population]" )
 
         REQUIRE( p.get_citizens()[0].get_data() != "aaab" );
     }
+
+    SECTION("Fitness should be detected properly", "[Population::is_fit]") {
+        auto p = Population("aaaa", 0);
+
+        auto c1 = Chromosome("aaab", -1); // 1
+        p.get_citizens().push_back(c1);
+
+        REQUIRE( !p.is_fit() );
+
+        auto c2 = Chromosome("aaaa", -1);
+        p.get_citizens().push_back(c2);
+
+        p.performance();
+
+        REQUIRE( p.is_fit() );
+    }
 }
