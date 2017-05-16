@@ -9,14 +9,15 @@ using std::vector;
 class Chromosome
 {
 private:
-    string   data;
-    int cost;
+    string  data;
+    int     cost;
 public:
     Chromosome();
     Chromosome(int strlen);
     Chromosome(string d, int c) :data {d}, cost {c} {}
 
-    Chromosome operator+(const Chromosome &other);
+    Chromosome operator + (const Chromosome &other);
+    bool       operator > (const Chromosome &other);
 
     Chromosome mutate();
     int calculate_cost(const std::string &ref);
@@ -42,13 +43,13 @@ public:
         citizens.clear();
     }
 
-    int performance();
+    int  performance();
     void kill();
     void crossover();
     void mutate();
     bool is_fit();
 
-    string get_status();
+    string  get_status();
     string& get_goal() { return goal; }
     vector<Chromosome>& get_citizens() { return citizens; }
 };

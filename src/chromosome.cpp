@@ -72,6 +72,13 @@ Chromosome Chromosome::operator+(const Chromosome &other)
 }
 
 
+bool Chromosome::operator>(const Chromosome &other)
+{
+    return cost < other.cost;
+}
+
+//// std::sort(vec.begin(), vec.end(),greater<MyStruct>());
+
 /**
  * Mutate one gene of a chromosome.
  */

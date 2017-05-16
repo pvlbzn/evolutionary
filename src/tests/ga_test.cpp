@@ -42,6 +42,16 @@ TEST_CASE( "Chromosome should correspond to specification", "[Chromosome::Chromo
         REQUIRE( c3.get_data() == (left_half + right_half) );
     }
 
+    SECTION("Chromosomes should be comparable", "[Chromosome::operator>]") {
+        auto c1 = Chromosome("aab", -1);
+        auto c2 = Chromosome("bbb", -1);
+
+        c1.calculate_cost("aaa");   // 1
+        c2.calculate_cost("aaa");   // 3
+
+        REQUIRE( c1 > c2 );
+    }
+
     SECTION("Chromosomes should mutate", "[Chromosome::mutate]") {
         auto c1 = Chromosome(50);
         auto c1_mutated = c1.mutate();
