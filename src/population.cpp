@@ -1,6 +1,7 @@
 #include <random>
 #include <sstream>
 #include <algorithm>
+#include <iostream>
 
 
 #include "ga.hpp"
@@ -76,17 +77,31 @@ void Population::kill()
     std::vector<Chromosome>::const_iterator last  = citizens.begin() + inflection_point;
     std::vector<Chromosome> n(first, last);
 
-    // citizens.clear();
+    citizens.clear();
 
     citizens = n;
 }
 
 /**
- *
+ * Crossover 1/4 most strongest chromosomes together.
  */
-void crossover()
+std::vector<Chromosome> Population::crossover()
 {
-    ;
+    sort();
+
+    int fraction = citizens.size() / 4;
+    std::vector<Chromosome> mates(citizens.begin(), citizens.begin() + fraction);
+    std::vector<Chromosome> breed;
+
+    // Say there are 8 mates
+    // 0 1 2 3 4 5 6 7
+    // o o o o o o o o
+    // Mate 0:1, 2:3, 3:5, 6:7
+    // or n = 1, n+2
+    for (int i = 1; i < mates.size(); i += 2)
+        breed.push_back(mates[i-1] + mates[i]);
+
+    return breed;
 }
 
 /**
@@ -102,5 +117,5 @@ void mutate()
  */
 bool is_fit()
 {
-    ;
+    return false;
 }

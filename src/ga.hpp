@@ -20,6 +20,7 @@ public:
     bool       operator > (const Chromosome &other) const;
 
     Chromosome mutate();
+    Chromosome crossover(const Chromosome &other);
     int calculate_cost(const std::string &ref);
 
     string get_data() const { return data; }
@@ -46,7 +47,7 @@ public:
     int  performance();
     void sort();
     void kill();
-    void crossover();
+    std::vector<Chromosome> crossover();
     void mutate();
     bool is_fit();
 

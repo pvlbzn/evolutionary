@@ -142,4 +142,31 @@ TEST_CASE( "Population should correspond to specification", "[Population]" )
         REQUIRE( p.get_citizens()[0].get_data() == "aab");
         REQUIRE( p.get_citizens()[1].get_data() == "abb");
     }
+
+    SECTION("Population crossover", "[Population::crossover]") {
+        auto p = Population("aaaa", 0);
+
+        auto c1 = Chromosome("aaab", -1); // 1
+        auto c2 = Chromosome("aabb", -1); // 2
+        auto c3 = Chromosome("abbb", -1); // 3
+        auto c4 = Chromosome("abbc", -1); // 4
+        auto c5 = Chromosome("abcc", -1); // 5
+        auto c6 = Chromosome("accc", -1); // 6
+        auto c7 = Chromosome("accd", -1); // 7
+        auto c8 = Chromosome("acdd", -1); // 8
+
+        p.get_citizens().push_back(c1);
+        p.get_citizens().push_back(c2);
+        p.get_citizens().push_back(c3);
+        p.get_citizens().push_back(c4);
+        p.get_citizens().push_back(c5);
+        p.get_citizens().push_back(c6);
+        p.get_citizens().push_back(c7);
+        p.get_citizens().push_back(c8);
+
+        auto breed = p.crossover();
+
+        REQUIRE( breed.size() == 1 );
+        REQUIRE( breed[0].get_data() == "aabb" );
+    }
 }
