@@ -122,4 +122,24 @@ TEST_CASE( "Population should correspond to specification", "[Population]" )
         REQUIRE( p.get_citizens()[0].get_data() == "aab");
         REQUIRE( p.get_citizens()[1].get_data() == "bbb");
     }
+
+    SECTION("Population should be killed properly", "[Population::kill]") {
+        auto p = Population("aaa", 0);
+
+        auto c1 = Chromosome("aab", -1); // 1
+        auto c2 = Chromosome("abb", -1); // 2
+        auto c3 = Chromosome("bbb", -1); // 3
+
+        p.get_citizens().push_back(c3);
+        p.get_citizens().push_back(c1);
+        p.get_citizens().push_back(c2);
+
+        // Mean: (1+2+3)/3 = 2
+        p.kill();
+
+        // "bbb" chromosome should be lost
+        REQUIRE( p.get_citizens().size() == 2);
+        REQUIRE( p.get_citizens()[0].get_data() == "aab");
+        REQUIRE( p.get_citizens()[1].get_data() == "abb");
+    }
 }

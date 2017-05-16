@@ -41,7 +41,7 @@ int Population::performance()
  */
 void Population::sort()
 {
-    std::sort(
+    return std::sort(
         citizens.begin(),
         citizens.end(),
         [](Chromosome const &l, Chromosome const &r) {
@@ -54,7 +54,31 @@ void Population::sort()
  */
 void Population::kill()
 {
-    ;
+    if (score == -1) performance();
+
+    // Find a mean cost of the citizens
+    // Everything in range of 0..mean is considered good,
+    // the rest goes into hands of the natural selection.
+    int mean = score / citizens.size();
+
+    // 0, 1, 2, 3 etc
+    sort();
+
+    int inflection_point = 0;
+    for (int i = 0; i < citizens.size(); i++) {
+        if (citizens[i].get_cost() > mean) {
+            inflection_point = i;
+            break;
+        }
+    }
+
+    std::vector<Chromosome>::const_iterator first = citizens.begin();
+    std::vector<Chromosome>::const_iterator last  = citizens.begin() + inflection_point;
+    std::vector<Chromosome> n(first, last);
+
+    // citizens.clear();
+
+    citizens = n;
 }
 
 /**
