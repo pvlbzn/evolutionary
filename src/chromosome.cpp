@@ -4,10 +4,8 @@
 #include "ga.hpp"
 
 
-// tmp value
-std::string reference_str = "Genetical Algorithm";
-const int ASCII_MIN = 32;
-const int ASCII_MAX = 122;
+#define ASCII_MAX 122
+#define ASCII_MIN 32
 
 
 /**
@@ -43,7 +41,12 @@ Chromosome::Chromosome()
     cost = -1;
 }
 
-
+/**
+ * Initialize new Chromosome with the string of the given length.
+ *
+ * @param strlen desired length of the random string
+ * @return new Chromosome
+ */
 Chromosome::Chromosome(int strlen)
 {
     data = make_random_str(ASCII_MIN, ASCII_MAX, strlen);
@@ -78,6 +81,10 @@ Chromosome Chromosome::operator+(const Chromosome &other)
  * 1 > 2 == true
  *
  * Because 1 is "better" than 2.
+ *
+ * @param other reference to other chromosome to which current instance
+ *              will be compared
+ * @return comparison truth value
  */
 bool Chromosome::operator>(const Chromosome &other) const
 {
@@ -87,6 +94,8 @@ bool Chromosome::operator>(const Chromosome &other) const
 
 /**
  * Mutate one gene of a chromosome.
+ *
+ * @return mutated chromosome
  */
 Chromosome Chromosome::mutate()
 {
@@ -107,6 +116,9 @@ Chromosome Chromosome::mutate()
  *
  * Function calculates chromosome cost and returns it. `cost` field
  * of the instance also mutated.
+ *
+ * @param ref reference to the reference (goal) string
+ * @return cost of the chromosome
  */
 int Chromosome::calculate_cost(const std::string &ref)
 {
