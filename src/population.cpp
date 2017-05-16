@@ -1,8 +1,6 @@
 #include <random>
 #include <sstream>
 #include <algorithm>
-#include <iostream>
-
 
 #include "ga.hpp"
 
@@ -11,6 +9,9 @@
  * Generate population.
  *
  * Population has a `size` and a `goal`.
+ *
+ * @param g goal string, reference
+ * @param s size of population
  */
 Population::Population(std::string g, int s)
 {
@@ -29,6 +30,8 @@ Population::Population(std::string g, int s)
  *
  * Performance of each chromosome is calculated, the sum of individual
  * chromosomes is the total score.
+ *
+ * @return performance score
  */
 int Population::performance()
 {
@@ -54,7 +57,7 @@ void Population::sort()
 }
 
 /**
- *
+ * Perform natural selection against population.
  */
 void Population::kill()
 {
@@ -87,6 +90,8 @@ void Population::kill()
 
 /**
  * Crossover 1/4 most strongest chromosomes together.
+ *
+ * @return vector of newly created chromosomes
  */
 std::vector<Chromosome> Population::crossover()
 {
@@ -108,7 +113,7 @@ std::vector<Chromosome> Population::crossover()
 }
 
 /**
- *
+ * Mutate random citizen.
  */
 void Population::mutate()
 {
@@ -121,7 +126,9 @@ void Population::mutate()
 }
 
 /**
+ * Check whether population reached the goal or not.
  *
+ * @return truth value of fitness
  */
 bool Population::is_fit()
 {
