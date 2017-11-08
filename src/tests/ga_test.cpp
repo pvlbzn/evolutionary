@@ -83,6 +83,10 @@ TEST_CASE( "Chromosome should correspond to specification", "[Chromosome::Chromo
 
         // Cost also should be returned correctly
         REQUIRE( c1.calculate_cost("bbb") == 3 );
+
+        auto c2 = Chromosome("isIna", -1);
+        c2.calculate_cost("Hello");
+        REQUIRE( c2.get_cost() == 2710 );
     }
 }
 

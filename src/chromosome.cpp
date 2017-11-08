@@ -5,7 +5,7 @@
 
 
 #define ASCII_MAX 122
-#define ASCII_MIN 32
+#define ASCII_MIN 65
 
 
 /**
@@ -101,7 +101,7 @@ Chromosome Chromosome::mutate()
 {
     std::random_device rd;
     std::mt19937 mt(rd());
-    std::uniform_int_distribution<int> str_dist(0, data.length());
+    std::uniform_int_distribution<int> str_dist(0, data.length()-1);
     std::uniform_int_distribution<int> char_dist(ASCII_MIN, ASCII_MAX);
 
     std::string d = data;
@@ -122,10 +122,13 @@ Chromosome Chromosome::mutate()
  */
 int Chromosome::calculate_cost(const std::string &ref)
 {
-    int score = cost = 0;
+    int total = 0;
 
-    for (int i = 0; i < data.length(); i++)
-        score += ((int) data[i]) - ((int) ref[i]);
+    for (int i = 0; i < data.length(); i++) {
+        total += (+data[i] - +ref[i]) * (+data[i] - +ref[i]);
+    }
 
-    return cost = score >= 0 ? score : -score;
+    cost = total;
+
+    return total;
 }

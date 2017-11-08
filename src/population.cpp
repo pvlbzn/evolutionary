@@ -83,13 +83,13 @@ void Population::kill()
     std::vector<Chromosome>::const_iterator last  = citizens.begin() + inflection_point;
     std::vector<Chromosome> n(first, last);
 
-    citizens.clear();
+    // citizens.clear();
 
     citizens = n;
 }
 
 /**
- * Crossover 1/4 most strongest chromosomes together.
+ * Crossover 1/3 most strongest chromosomes together.
  *
  * @return vector of newly created chromosomes
  */
@@ -97,19 +97,24 @@ std::vector<Chromosome> Population::crossover()
 {
     sort();
 
-    int fraction = citizens.size() / 4;
+    int fraction = citizens.size() / 3;
     std::vector<Chromosome> mates(citizens.begin(), citizens.begin() + fraction);
-    std::vector<Chromosome> breed;
 
     // Say there are 8 mates
     // 0 1 2 3 4 5 6 7
     // o o o o o o o o
     // Mate 0:1, 2:3, 3:5, 6:7
     // or n = 1, n+2
-    for (int i = 1; i < mates.size(); i += 2)
-        breed.push_back(mates[i-1] + mates[i]);
+    for (int i = 1; i < mates.size(); i += 2) {
+        auto n = mates[i - 1] + mates[i];
+        n.calculate_cost(goal);
+        citizens.push_back(n);
+    }
 
-    return breed;
+    sort();
+
+    for (int i = 1; i < mates.size(); i += 2)
+        citizens.pop_back();
 }
 
 /**
@@ -121,8 +126,10 @@ void Population::mutate()
     std::mt19937 mt(rd());
     std::uniform_int_distribution<int> dist_citizen(0, citizens.size() - 1);
 
-    int n = dist_citizen(mt);
-    citizens[n] = citizens[n].mutate();
+    // int n = dist_citizen(mt);
+    // citizens[n] = citizens[n].mutate();
+    for (int i = 0; i < citizens.size(); i++)
+        citizens[i] = citizens[i].mutate();
 }
 
 /**
@@ -137,4 +144,16 @@ bool Population::is_fit()
             return true;
 
     return false;
+}
+
+
+std::string Population::get_status()
+{
+    std::stringstream ss;
+    // Population score
+    ss << "score: \t" << score << '\n';
+    for (auto &c : citizens)
+        ss << "data: \t" << c.get_data() << "\t cost: \t" << c.get_cost() << "\n";
+
+    return ss.str();
 }

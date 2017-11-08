@@ -47,6 +47,7 @@ public:
     int  performance();
     void sort();
     void kill();
+    void repopulate();
     std::vector<Chromosome> crossover();
     void mutate();
     bool is_fit();
